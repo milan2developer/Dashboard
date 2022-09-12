@@ -75,7 +75,6 @@ import { EffectsModule, Actions } from "@ngrx/effects";
         OutputGraphComponent,
     ],
     providers: [
-        { provide: LocationStrategy, useClass: HashLocationStrategy },
         CountryService,
         MenuService,
         AppBreadcrumbService,
@@ -85,4 +84,5 @@ import { EffectsModule, Actions } from "@ngrx/effects";
     ],
     bootstrap: [AppComponent],
 })
+// { provide: LocationStrategy, useClass: HashLocationStrategy },
 export class AppModule {}

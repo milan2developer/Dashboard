@@ -21,10 +21,10 @@ import { DynamicCrudComponent } from "./demo/Components/dynamicCrud/dynamicCrud.
                     canActivate: [UnAuthGuard],
                     component: AppLoginComponent,
                 },
-                { path: "", redirectTo: "/login", pathMatch: "full" },
+                { path: "", redirectTo: "login", pathMatch: "full" },
                 { path: "signUp", component: AppWizardComponent },
                 {
-                    path: "dashboard",
+                    path: "",
                     canActivate: [AuthGuard],
                     component: AppMainComponent,
                     children: [
@@ -48,7 +48,7 @@ import { DynamicCrudComponent } from "./demo/Components/dynamicCrud/dynamicCrud.
                 { path: "notfound", component: AppNotfoundComponent },
                 // { path: "**", redirectTo: "/notfound" },
             ],
-            { scrollPositionRestoration: "enabled", useHash: false }
+            { useHash: false }
         ),
     ],
     exports: [RouterModule],

@@ -9,7 +9,7 @@
     "scripts": {
         "ng": "ng",
         "start": "concurrently \"node server.js/\" \" node preload.js/\"",
-        "build": "ng build --prod --base-href && npm run copy",
+        "build": "ng build --prod && npm run copy",
         "copy": "copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
         "test": "ng test",
         "lint": "ng lint",
