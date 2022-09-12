@@ -182,7 +182,8 @@ const userRoutes = (app, fs) => {
 
 const appRouter = (app, fs) => {
     // default route
-    app.get('/', (req, res) => {
+    userRoutes(app, fs);
+    app.get('/*', (req, res) => {
 
         if (req.originalUrl === `/kalantak`) {
             console.log(req.originalUrl, 'req')
@@ -191,10 +192,9 @@ const appRouter = (app, fs) => {
         }
         app.use(express.static('./dist/dashboard'));
         res.sendFile('index.html', { root: 'dist/dashboard/' })
-        userRoutes(app, fs);
         // res.send('welcome to the development api-server');
     });
-    app.get('/kalantak/users')
+    // app.get('/kalantak/users')
     // // other routes
 
 };
