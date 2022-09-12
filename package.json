@@ -10,14 +10,14 @@
         "ng": "ng",
         "start": "node server.js",
         "build": "ng build --prod --base-href && npm run copy",
-        "copy": "copyfiles \"package.json\" \"dist/dashboard/\" && copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
+        "copy": "copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
         "server": "nodemon",
         "electron": "concurrently \"npm run server\" \"ng build && electron .\"",
         "dist": "electron-builder",
-        "heroku-postbuild": "ng build --prod"
+        "heroku-postbuild": "ng build --prod --base-href"
     },
     "private": true,
     "dependencies": {
