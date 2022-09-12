@@ -8,7 +8,7 @@
     "angular-cli": {},
     "scripts": {
         "ng": "ng",
-        "start": "nodemon server.js",
+        "start": "node server.js",
         "build": "ng build --prod --base-href && npm run copy",
         "copy": "copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
         "test": "ng test",
