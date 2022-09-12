@@ -178,9 +178,6 @@ const userRoutes = (app, fs) => {
             true);
     });
 };
-
-
-
 const appRouter = (app, fs) => {
     // default route
     app.get('/*', (req, res) => {
