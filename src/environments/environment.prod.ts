@@ -1,4 +1,4 @@
 export const environment = {
-    apiUrl: "https://angular13-dashboard.herokuapp.com/kalantak",
+    apiUrl: "http://localhost:3000/kalantak",
     production: true,
 };

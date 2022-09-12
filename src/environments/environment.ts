@@ -4,6 +4,6 @@
 // The list of which env maps to which file can be found in `angular-cli.json`.
 
 export const environment = {
-    apiUrl: "https://angular13-dashboard.herokuapp.com/kalantak",
+    apiUrl: "http://localhost:3000/kalantak",
     production: false,
 };

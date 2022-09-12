@@ -8,7 +8,7 @@
     "angular-cli": {},
     "scripts": {
         "ng": "ng",
-        "start": "node server.js",
+        "start": "concurrently \"node server.js/\" \" node preload.js/\"",
         "build": "ng build --prod --base-href && npm run copy",
         "copy": "copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
         "test": "ng test",
@@ -41,6 +41,7 @@
         "@types/d3-collection": "^1.0.10",
         "@types/d3-sankey": "^0.11.2",
         "body-parser": "^1.20.0",
+        "concurrently": "^7.4.0",
         "cors": "^2.8.5",
         "d3": "^7.6.1",
         "d3-cloud": "^1.2.5",
