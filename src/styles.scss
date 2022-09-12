@@ -1,0 +1,35 @@
+@import "../node_modules/primeng/resources/primeng.min.css";
+@import "../node_modules/primeflex/primeflex.scss";
+@import "../node_modules/primeicons/primeicons.css";
+@import "../node_modules/prismjs/themes/prism-coy.css";
+@import "./assets/layout/css/layout-light.css";
+@import "./assets/theme/indigo/theme-light.css";
+@import "./appdemo.scss";
+@import "./assets/sass/overrides/layout_styles";
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    width: 100%;
+    z-index: 102;
+    //other codes
+}
+// .card {
+//     background-color: #ffffff;
+//     padding: 1rem;
+//     margin-bottom: 2rem;
+//     box-shadow: 0 2px 1px -1px rgb(0 0 0 / 20%), 0 1px 1px 0 rgb(0 0 0 / 14%), 0 1px 3px 0 rgb(0 0 0 / 12%);
+//     border-radius: 5px;
+//     transition: transform .2s;
+// }
+// .card:hover {
+//     transform: rotate(1deg);
+//   }
+// .card:hover {
+//     transform: scale(1.25) rotate(2deg);
+//   }
+// .card:hover {
+//     transform: scale(1.2); /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
+//     z-index: 1;
+//     position: relative;
+//   }

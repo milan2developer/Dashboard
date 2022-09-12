@@ -1,0 +1,23 @@
+{
+    "name": "server",
+    "author": "Kalantak Technology",
+    "description": "This Application is for Analysis Purpose",
+    "version": "0.0.0",
+    "scripts": {
+        "ng": "ng",
+        "start": "ng serve"
+    },
+    "private": true,
+    "dependencies": {
+        "@angular/animations": "~13.0.1",
+        "body-parser": "^1.20.0",
+        "copyfiles": "^2.4.1",
+        "cors": "^2.8.5",
+        "express": "^4.18.1",
+        "fs": "^0.0.1-security",
+        "nodemon": "^2.0.19"
+    },
+    "devDependencies": {
+        "electron-builder": "^23.3.3"
+    }
+}

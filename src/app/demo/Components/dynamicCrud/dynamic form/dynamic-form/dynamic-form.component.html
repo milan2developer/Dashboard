@@ -1,0 +1,66 @@
+<div [ngClass]="formJSONData">
+    <div [ngClass]="formJSONData.cssClassm">
+        <form [formGroup]="form" (ngSubmit)="submit()">
+            <div [ngClass]="formJSONData.parentcssClass">
+                <ng-container *ngFor="let field of formJSONData.fields">
+                    <div *ngIf="field.type=='dropdown'" [ngClass]="field.parentcssClass">
+                        <div *ngIf="field.inputType=='dropdown'">
+                            <label [for]="field.name">{{field.label}}</label>
+                            <div [ngClass]="field.childClass">
+                                <p-dropdown [options]="field.Options" [placeholder]="field.placeholder"
+                                    [virtualScroll]="true" [formControlName]="field.name" [styleClass]="field.css">
+                                </p-dropdown>
+                            </div>
+                            <app-show-errors [ctrl]="form.get(field.name)" [validations]="field.validations">
+                            </app-show-errors>
+                        </div>
+                    </div>
+                    <div *ngIf="field.type=='input'" [ngClass]="field.parentcssClass">
+                        <div *ngIf="field.inputType=='text' || field.inputType=='number'">
+                            <label [for]="field.name"> {{field.label}}</label>
+                            <div [ngClass]="field.childClass">
+                                <input pInputText [formControlName]="field.name" [type]="field.inputType"
+                                    [name]="field.name" [ngClass]="field.css" />
+                            </div>
+                            <app-show-errors [ctrl]="form.get(field.name)" [validations]="field.validations">
+                            </app-show-errors>
+                        </div>
+                    </div>
+                    <div *ngIf="field.type=='file'" [ngClass]="field.parentcssClass">
+                        <div *ngIf="field.inputType=='image'">
+                            <label [for]="field.name">{{field.label}}</label>
+                            <div class="image-input">
+                                <input [name]="field.name" [accept]="field.inputType" [id]="field.id"
+                                    [type]="field.type" (focusout)="onFileChange($event)"
+                                    (change)="onFileChange($event)">
+                                <label [for]="field.id" class="image-button"
+                                    [ngClass]="{'hide':form.get(field.name).value}">Choose image</label>
+                                <div class="image-preview-box">
+                                    <img [src]="form.get(field.name).value" class="image-preview">
+                                    <label [for]="field.id" *ngIf="form.get(field.name).value"
+                                        class="change-image">Choose different image</label>
+                                </div>
+                                <app-show-errors [ctrl]="form.get(field.name)" [validations]="field.validations">
+                                </app-show-errors>
+                            </div>
+                        </div>
+                    </div>
+                </ng-container>
+            </div>
+            <div *ngFor="let field of formJSONData.fields">
+                <div *ngIf="field.type=='buttonGroup'" [ngClass]="field.CSsClass">
+                    <div *ngFor="let opt of field.buttons">
+                        <div *ngIf="opt.type=='submit'">
+                            <button pButton pRipple [type]="opt.type" [disabled]="!form.valid" [icon]="  opt.icone"
+                                [label]="opt.label" [ngClass]="opt.btncolor"></button>
+                        </div>
+                        <div *ngIf="opt.type=='button'">
+                            <button pButton pRipple [type]="opt.type" [icon]=" opt.icone" [label]="opt.label"
+                                [ngClass]="opt.btncolor"></button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

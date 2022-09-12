@@ -1,0 +1,101 @@
+<p-toast></p-toast>
+
+<body class="wizard-body">
+    <div class="wizard-wrapper">
+        <div class="wizard-content">
+            <div class="wizard-card registerCard">
+                <div class="wizard-card-header">
+                    <div class="grid col">
+                        <div class="col-12 tab register-tab" [ngClass]="{
+                                'selected-tab': activeTab == 'register'
+                            }">
+                            <div class="icon">
+                                <i class="pi pi-sign-in"></i>
+                            </div>
+                            <div class="title">REGISTER</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="wizard-card-content register" [ngClass]="{ 'active-content': activeTab === 'register' }">
+                    <div class="grid">
+                        <div class="col-12">
+                            <h1>ESSENTIAL INFORMATION</h1>
+                            <form class="forms" [formGroup]="signupForm" (ngSubmit)="signUp()">
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon">
+                                        <i class="pi pi-user"></i>
+                                    </span>
+                                    <span class="p-float-label">
+                                        <input class="custom-input" id="name" type="text" pInputText
+                                            formControlName="username" />
+                                        <label for="name">Username</label>
+                                    </span>
+                                </div>
+                                <div class="error">
+                                    <small id="username-help" class="p-error"
+                                        *ngIf="signupForm.get('username').hasError('required') && signupForm.get('username').touched">Username
+                                        is required</small>
+
+                                    <small id="username-help" class="p-error"
+                                        *ngIf="signupForm.get('username').hasError('maxlength')">You have more than 20
+                                        characters</small>
+                                </div>
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon">
+                                        <i class="pi pi-user"></i>
+                                    </span>
+                                    <span class="p-float-label">
+                                        <input class="custom-input" id="email" type="text" pInputText
+                                            autocomplete="false" formControlName="email" />
+                                        <label for="email">Email</label>
+                                    </span>
+                                </div>
+                                <div class="error">
+                                    <small id="email-help" class="p-error"
+                                        *ngIf="signupForm.get('email').hasError('required') && signupForm.get('email').touched">email
+                                        is required</small>
+
+                                    <small id="email-help" class="p-error"
+                                        *ngIf="signupForm.get('email').hasError('pattern')">Please enter a valid email
+                                        address</small>
+                                </div>
+                                <div class="p-inputgroup">
+                                    <span class="p-inputgroup-addon">
+                                        <i class="pi pi-sign-in"></i>
+                                    </span>
+                                    <span class="p-float-label">
+                                        <input class="custom-input" id="password" type="password" pInputText
+                                            autocomplete="false" formControlName="password" />
+                                        <label for="password">Password</label>
+                                    </span>
+                                </div>
+                                <div class="error">
+                                    <small id="password-help" class="p-error"
+                                        *ngIf="signupForm.get('password').hasError('required') && signupForm.get('password').touched">password
+                                        is required</small>
+
+                                    <small id="username-help" class="p-error"
+                                        *ngIf="signupForm.get('password').hasError('minlength')">Password minimum length
+                                        is 8
+                                        characters
+                                    </small>
+                                    <small id="username-help" class="p-error"
+                                        *ngIf="signupForm.get('password').hasError('maxlength')">Password maximum length
+                                        is 30
+                                        characters
+                                    </small>
+                                </div>
+                                <div class="col-12">
+                                    <button [disabled]="!signupForm.valid" pButton pRipple class="continue-button"
+                                        type="submit" label="Sign-UP"></button>
+                                </div>
+                                <span class="flex justify-content-center">Already have an account?
+                                    <a routerLink="/login">signIn</a></span>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>

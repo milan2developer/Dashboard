@@ -1,0 +1,8 @@
+[
+    { "Room": "Class_Room", "Deficiency": 4 },
+    { "Room": "Auditorium", "Deficiency": 6 },
+    { "Room": "Cafeteria", "Deficiency": 2 },
+    { "Room": "Office", "Deficiency": 3 },
+    { "Room": "Restroom", "Deficiency": 8 },
+    { "Room": "Breakroom", "Deficiency": 7 }
+]

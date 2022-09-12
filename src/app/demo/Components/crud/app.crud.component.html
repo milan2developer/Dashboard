@@ -1,0 +1,307 @@
+<div class="grid">
+    <div class="col-12">
+        <p-toast></p-toast>
+
+        <div class="card">
+            <p-toolbar styleClass="mb-4">
+                <ng-template pTemplate="left">
+                    <button
+                        pButton
+                        pRipple
+                        label="New"
+                        icon="pi pi-plus"
+                        class="p-button-success mr-2 mb-2"
+                        (click)="openNew()"
+                    ></button>
+                </ng-template>
+            </p-toolbar>
+            <p-dataView
+                #dv
+                [value]="employes$ | async"
+                [paginator]="true"
+                [rows]="12"
+                filterBy="name"
+                [sortField]="sortField"
+                [sortOrder]="sortOrder"
+                layout="grid"
+                [rowsPerPageOptions]="[12, 25, 50]"
+            >
+                <ng-template pTemplate="header">
+                    <div
+                        class="flex flex-column md:flex-row md:justify-content-between"
+                    >
+                        <p-dropdown
+                            [options]="sortOptions"
+                            [(ngModel)]="sortKey"
+                            placeholder="Sort By Price"
+                            (onChange)="onSortChange($event)"
+                            styleClass="mb-2 md:mb-0"
+                        ></p-dropdown>
+                        <span class="p-input-icon-left mb-2 md:mb-0">
+                            <i class="pi pi-search"></i>
+                            <input
+                                type="search"
+                                pInputText
+                                placeholder="Search by Name"
+                                (input)="dv.filter($event.target.value)"
+                            />
+                        </span>
+                        <p-dataViewLayoutOptions></p-dataViewLayoutOptions>
+                    </div>
+                </ng-template>
+                <ng-template let-employe pTemplate="listItem">
+                    <div class="col-12">
+                        <div class="product-list-item">
+                            <img
+                                [src]="employe.image"
+                                width="160px"
+                                height="125px"
+                                [alt]="employe.name"
+                            />
+                            <div class="product-list-detail">
+                                <div class="product-name">
+                                    {{ employe.name }}
+                                </div>
+                            </div>
+                            <div class="product-list-detail">
+                                <i class="pi pi-tag product-category-icon"></i
+                                ><span class="product-category">{{
+                                    employe.category
+                                }}</span>
+                            </div>
+                            <div class="product-list-detail">
+                                <div class="product-description">
+                                    {{ employe.description }}
+                                </div>
+                            </div>
+                            <div class="product-list-detail">
+                                <span class="product-price">{{
+                                    employe.salary
+                                }}</span>
+                            </div>
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-pencil"
+                                class="p-button-rounded p-button-success mr-2"
+                                (click)="editemploye(employe)"
+                            ></button>
+                            <button
+                                pButton
+                                pRipple
+                                icon="pi pi-trash"
+                                class="p-button-rounded p-button-warning"
+                                (click)="deleteemploye(employe)"
+                            ></button>
+                        </div>
+                    </div>
+                </ng-template>
+                <ng-template let-employe pTemplate="gridItem">
+                    <!-- <div class="xxl:col-2 xl:col-3 lg:col-4 sm:col-6 col-12"> -->
+                    <div class="col-12 xl:col-2 lg:col-3 md:col-3 sm:col-6">
+                        <div class="product-grid-item card">
+                            <div class="product-grid-item-top">
+                                <div>
+                                    <i
+                                        class="pi pi-tag product-category-icon"
+                                    ></i>
+                                    <span class="product-category">{{
+                                        employe.category
+                                    }}</span>
+                                </div>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-pencil"
+                                    class="p-button-rounded p-button-success"
+                                    (click)="editemploye(employe)"
+                                ></button>
+                            </div>
+                            <div class="product-grid-item-content">
+                                <img
+                                    [src]="employe.image"
+                                    width="160px"
+                                    height="125px"
+                                    [alt]="employe.name"
+                                />
+                                <div class="product-name">
+                                    {{ employe.name }}
+                                </div>
+                                <div class="product-description">
+                                    {{ employe.description }}
+                                </div>
+                            </div>
+                            <div class="product-grid-item-bottom">
+                                <span class="product-price">{{
+                                    employe.salary
+                                }}</span>
+                                <button
+                                    pButton
+                                    pRipple
+                                    icon="pi pi-trash"
+                                    class="p-button-rounded p-button-warning"
+                                    (click)="deleteemploye(employe)"
+                                ></button>
+                            </div>
+                        </div>
+                    </div>
+                </ng-template>
+            </p-dataView>
+        </div>
+
+        <p-dialog
+            [(visible)]="employeDailog"
+            [style]="{ width: '450px' }"
+            header="Product Details"
+            [modal]="true"
+            styleClass="p-fluid"
+        >
+            <ng-template pTemplate="content">
+                <form [formGroup]="employeeForm" (ngSubmit)="saveProduct()">
+                    <div class="field imageUploadDiv">
+                        <img
+                            class="imageFile"
+                            *ngIf="employeeForm.get('image').value"
+                            [src]="employeeForm.get('image').value"
+                            width="100px"
+                            height="100px"
+                        />
+                        <label class="imageLabel" for="image">
+                            {{
+                                employeeForm.get("image").value
+                                    ? "Change Image"
+                                    : "Image Upload"
+                            }}
+                        </label>
+                        <input
+                            type="file"
+                            id="image"
+                            [hidden]="true"
+                            pInputText
+                            placeholder="Image Upload"
+                            (change)="onChange($event)"
+                        />
+                        <div class="error">
+                            <!-- <small id="Image Upload" class="p-error"
+                                *ngIf="employeeForm.get('image').hasError('required') && employeeForm.get('image').touched">Employee
+                                - Image
+                                is required</small> -->
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="name">Employee Name</label>
+                        <input
+                            type="text"
+                            pInputText
+                            id="name"
+                            formControlName="name"
+                        />
+                        <div class="error">
+                            <small
+                                id="name"
+                                class="p-error"
+                                *ngIf="
+                                    employeeForm
+                                        .get('name')
+                                        .hasError('required') &&
+                                    employeeForm.get('name').touched
+                                "
+                                >Employee - name is required</small
+                            >
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="Category">Category</label>
+                        <p-dropdown
+                            class="category_Dropdown"
+                            [options]="Categories"
+                            formControlName="category"
+                            placeholder="Select Role"
+                        ></p-dropdown>
+                        <div class="error">
+                            <small
+                                id="Category"
+                                class="p-error"
+                                *ngIf="
+                                    employeeForm
+                                        .get('category')
+                                        .hasError('required') &&
+                                    employeeForm.get('category').touched
+                                "
+                                >Employee - category is required</small
+                            >
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="description">Employee Description</label>
+                        <textarea
+                            id="description"
+                            pInputTextarea
+                            formControlName="description"
+                            rows="3"
+                            cols="20"
+                        ></textarea>
+                        <div class="error">
+                            <small
+                                id="description"
+                                class="p-error"
+                                *ngIf="
+                                    employeeForm
+                                        .get('description')
+                                        .hasError('required') &&
+                                    employeeForm.get('description').touched
+                                "
+                                >Employee - description is required</small
+                            >
+                        </div>
+                    </div>
+                    <div class="field">
+                        <label for="salary">Salary</label>
+                        <p-inputNumber
+                            id="salary"
+                            formControlName="salary"
+                            currency="USD"
+                            locale="en-US"
+                        >
+                        </p-inputNumber>
+                        <div class="error">
+                            <small
+                                id="salary"
+                                class="p-error"
+                                *ngIf="
+                                    employeeForm
+                                        .get('salary')
+                                        .hasError('required') &&
+                                    employeeForm.get('salary').touched
+                                "
+                                >Employee - salary is required</small
+                            >
+                        </div>
+                    </div>
+                    <div class="row col-12 flex justify-content-end mr-5px">
+                        <button
+                            pButton
+                            pRipple
+                            label="Cancel"
+                            type="reset"
+                            icon="pi pi-times"
+                            class="p-button-text"
+                            (click)="CancelButton()"
+                        ></button>
+                        <button
+                            pButton
+                            pRipple
+                            label="Save"
+                            [disabled]="!employeeForm.valid"
+                            type="submit"
+                            icon="pi pi-check"
+                            class="p-button-text"
+                        ></button>
+                    </div>
+                </form>
+            </ng-template>
+        </p-dialog>
+
+        <p-confirmDialog [style]="{ width: '450px' }"></p-confirmDialog>
+    </div>
+</div>

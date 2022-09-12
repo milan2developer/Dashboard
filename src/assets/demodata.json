@@ -1,0 +1,142 @@
+{
+    "layoutType": "form",
+    "title": "Product Details",
+    "formcss": "formgrid  ",
+    "parentcssClass": "grid",
+    "cssClassm": "m-4",
+    "labelmargin": "ml-4",
+    "btnCss": "flex justify-content-end mt-4",
+    "fields": [
+        {
+            "type": "id",
+            "name": "id",
+            "value": 0
+        },
+        {
+            "type": "file",
+            "label": "Employe Picture",
+            "inputType": "image",
+            "name": "image",
+            "parentcssClass": "field col-12 ",
+            "childClass": "mt-2",
+            "id": "imageInput",
+            "css": "w-full",
+            "value": "",
+            "validations": [
+                {
+                    "name": "required",
+                    "validator": "required",
+                    "message": "Employe Picture is required"
+                }
+            ]
+        },
+        {
+            "type": "input",
+            "label": "Employe name",
+            "inputType": "text",
+            "name": "name",
+            "parentcssClass": "field  col-12 ",
+            "childClass": "mt-2",
+            "css": "w-full",
+            "value": "",
+            "validations": [
+                {
+                    "name": "required",
+                    "validator": "required",
+                    "message": "Employe name is required"
+                }
+            ]
+        },
+        {
+            "type": "dropdown",
+            "label": "Category*",
+            "inputType": "dropdown",
+            "name": "category",
+            "parentcssClass": "field col-12",
+            "childClass": "mt-2",
+            "css": "w-full",
+            "placeholder": "Select Category",
+            "value": "",
+            "validations": [
+                {
+                    "name": "required",
+                    "validator": "required",
+                    "message": "Please select one"
+                }
+            ],
+            "Options": [
+                { "label": "Data-Analyst", "value": "Data-Analyst" },
+                {
+                    "label": "FrontEnd-Developer",
+                    "value": "FrontEnd-Developer"
+                },
+                { "label": "Backend-Developer", "value": "Backend-Developer" },
+                {
+                    "label": "Fullstack-Developer",
+                    "value": "Fullstack-Developer"
+                },
+                { "label": "Android-Developer", "value": "Android-Developer" },
+                { "label": "IOS-Developer", "value": "IOS-Developer" },
+                { "label": "Angular-Developer", "value": "Angular-Developer" },
+                { "label": "Flutter-Developer", "value": "Flutter-Developer" },
+                { "label": "React-Developer", "value": "React-Developer" },
+                { "label": "UI_UX-designer", "value": "UI_UX-designer" },
+                { "label": "Tester", "value": "Tester" }
+            ]
+        },
+        {
+            "type": "input",
+            "label": "Employe Description",
+            "inputType": "text",
+            "name": "description",
+            "parentcssClass": "field  col-12 ",
+            "childClass": "mt-2",
+            "css": "w-full",
+            "value": "",
+            "validations": [
+                {
+                    "name": "required",
+                    "validator": "required",
+                    "message": "Description is required"
+                }
+            ]
+        },
+        {
+            "type": "input",
+            "label": "Salary*",
+            "inputType": "number",
+            "name": "salary",
+            "parentcssClass": "field  col-12 ",
+            "childClass": "mt-2",
+            "css": "w-full",
+            "value": "",
+            "validations": [
+                {
+                    "name": "required",
+                    "validator": "required",
+                    "message": "Salary is required"
+                }
+            ]
+        },
+        {
+            "type": "buttonGroup",
+            "CSsClass": "flex justify-content-end mr-8 mt-6",
+            "buttons": [
+                {
+                    "type": "button",
+                    "label": "Cancle",
+                    "buttonCss": "me-2",
+                    "icone": "pi pi-times",
+                    "btncolor": "p-button-secondary p-button-text mr-8 "
+                },
+                {
+                    "type": "submit",
+                    "label": "Save",
+                    "buttonCss": "me-2",
+                    "icone": "pi pi-check",
+                    "btncolor": " p-button-text"
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+
+<div class="card ">
+    <p-toolbar styleClass="p-mb-4">
+        <ng-template pTemplate="left">
+            <button pButton pRipple label="New" icon="pi pi-plus" class="p-button-success p-mr-2"
+                (click)="openNew()"></button>
+        </ng-template>
+    </p-toolbar>
+
+    <p-table #dt [value]="products" [columns]="tableColumn" [rows]="10" [paginator]="true" [responsive]="true"
+        responsiveLayout="scroll" [globalFilterFields]="['name','country.name','representative.name','status']"
+        [(selection)]="selectedProducts" [rowHover]="true" dataKey="id"
+        currentPageReportTemplate="Showing {first} to {last} of {totalRecords} entries" [showCurrentPageReport]="true"
+        [rowsPerPageOptions]="[10,25,50]">
+        <ng-template pTemplate="header">
+            <tr>
+                <ng-container *ngFor="let column of tableColumn">
+                    <th *ngIf="column!=='id' && column!=='Action' &&  column!=='image'" [pSortableColumn]="column">
+                        {{column}}<p-sortIcon [field]="column">
+                        </p-sortIcon>
+                    </th>
+                    <th *ngIf="column==='Action' ||  column==='image'">{{column}}
+                    </th>
+                </ng-container>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-product let-columns="columns">
+            <tr>
+                <ng-container *ngFor="let col of columns">
+                    <td *ngIf="col!=='id' && col!=='Action' && col!=='image'">
+                        {{product[col]}}
+                    </td>
+                    <td *ngIf="col==='image'">
+                        <img [src]="product[col]" onerror="this.src='assets/demo/images/demoImage.jpg'"  height="80px" width="80px" />
+                    </td>
+                    <td *ngIf="col==='Action'">
+                        <button pButton pRipple (click)="openEditMode(product)" icon=" pi pi-pencil"
+                            class="p-button-rounded p-button-success p-mr-2"></button>
+                        <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                            (click)="deleteProduct(product)"></button>
+                    </td>
+                </ng-container>
+
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="summary">
+            <div class="p-d-flex p-ai-center p-jc-between">
+                In total there are {{products ? products.length : 0 }} products.
+            </div>
+        </ng-template>
+    </p-table>
+</div>
+
+<p-dialog [(visible)]="productDialog" [style]="{width: '600px'}" header="Product Details" [modal]="true"
+    styleClass="p-fluid">
+    <ng-template pTemplate="content">
+        <div *ngIf="FormData && FormData.fields">
+            <app-dynamic-form [formJSONData]="FormData" (validFormchange)="saveProduct($event)">
+            </app-dynamic-form>
+        </div>
+    </ng-template>
+</p-dialog>
+
+<p-confirmDialog [style]="{width: '450px'}"></p-confirmDialog>

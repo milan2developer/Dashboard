@@ -1,0 +1,32 @@
+.legend {
+    font-size: 14px;
+}
+::ng-deep rect {
+    cursor: pointer;
+    stroke-width: 2;
+}
+::ng-deep rect.disabled {
+    fill: transparent !important;
+}
+::ng-deep .h-30rem {
+    height: 50rem !important;
+}
+::ng-deep.node rect {
+    fill-opacity: 0.9;
+    shape-rendering: crispEdges;
+}
+
+::ng-deep .node text {
+    pointer-events: none;
+    text-shadow: 0 1px 0 #fff;
+}
+
+::ng-deep .link {
+    fill: none;
+    stroke: #000;
+    stroke-opacity: 0.2;
+}
+
+::ng-deep .link:hover {
+    stroke-opacity: 0.5;
+}

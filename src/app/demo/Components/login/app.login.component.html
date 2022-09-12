@@ -1,0 +1,65 @@
+<p-toast></p-toast>
+<div class="pages-body login-page flex flex-column">
+    <div class="align-self-center mt-auto mb-auto">
+        <div class="pages-panel card flex flex-column">
+            <div class="pages-header px-3 py-1">
+                <h2>LOGIN</h2>
+            </div>
+
+            <h4>Welcome</h4>
+
+            <div class="pages-detail mb-6 px-6">Please use the form to sign-in Dashboard</div>
+
+            <form class="input-panel flex flex-column px-3" [formGroup]="loginForm" (ngSubmit)="login()">
+                <div class="p-inputgroup">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-envelope"></i>
+                    </span>
+                    <span class="p-float-label">
+                        <input type="text" id="email" pInputText formControlName='email' >
+                        <label for="email">Email</label>
+                    </span>
+                </div>
+                <div class="error">
+                    <small id="email-help" class="p-error"
+                        *ngIf="loginForm.get('email').hasError('required') && loginForm.get('email').touched">email
+                        is required</small>
+
+                    <small id="email-help" class="p-error" *ngIf="loginForm.get('email').hasError('pattern')">Please
+                        enter a valid email
+                        address</small>
+                </div>
+
+                <div class="p-inputgroup mt-3">
+                    <span class="p-inputgroup-addon">
+                        <i class="pi pi-lock"></i>
+                    </span>
+                    <span class="p-float-label">
+                        <input type="password" id="password" pInputText formControlName='password'>
+                        <label for="password">Password</label>
+                    </span>
+                </div>
+                <div class="error">
+                    <small id="password-help" class="p-error"
+                        *ngIf="loginForm.get('password').hasError('required') && loginForm.get('password').touched">password
+                        is required</small>
+
+                    <small id="username-help" class="p-error"
+                        *ngIf="loginForm.get('password').hasError('minlength')">Password minimum length
+                        is 8
+                        characters
+                    </small>
+                    <small id="username-help" class="p-error"
+                        *ngIf="loginForm.get('password').hasError('maxlength')">Password maximum length
+                        is 30
+                        characters
+                    </small>
+                </div>
+                <p-button class="login-button mb-2 mt-6 px-3" type="submit" label="LOGIN"></p-button>
+                <span class="mb-6 ">Don't have an account?
+                    <a routerLink="/signUp">signUp</a></span>
+            </form>
+        </div>
+    </div>
+
+</div>

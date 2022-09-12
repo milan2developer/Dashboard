@@ -1,0 +1,43 @@
+<div class="grid dashboard">
+    <div class="col-12 lg:col-6">
+        <div class="card height-100">
+            <div class="card-header">
+                <h5>Bar Chart</h5>
+            </div>
+            <ul class="widget-list">
+                <app-output-graph [type]="'column'"></app-output-graph>
+            </ul>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6">
+        <div class="card height-100">
+            <div class="card-header">
+                <h5>Line chart</h5>
+            </div>
+            <app-output-graph [type]="'line'"></app-output-graph>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6">
+        <div class="card height-100">
+            <div class="card-header">
+                <h5>Pie Chart</h5>
+            </div>
+            <div class="widget-chat">
+                <app-output-graph [type]="'pie'"></app-output-graph>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-12 lg:col-6">
+        <div class="card height-100">
+            <div class="card-header">
+                <h5>Pie Chart</h5>
+            </div>
+            <div class="widget-chat">
+                <app-output-graph [type]="'scatter'"></app-output-graph>
+            </div>
+        </div>
+    </div>
+</div>
