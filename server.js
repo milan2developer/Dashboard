@@ -183,9 +183,9 @@ const appRouter = (app, fs) => {
     app.get('/*', (req, res) => {
         res.send('welcome to the development api-server');
         res.sendFile('index.html', { root: 'dist/dashboard/' });
+        userRoutes(app, fs);
     });
     // // other routes
-    userRoutes(app, fs);
 
 };
 appRouter(app, fs)
