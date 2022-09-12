@@ -48,7 +48,7 @@ import { DynamicCrudComponent } from "./demo/Components/dynamicCrud/dynamicCrud.
                 { path: "notfound", component: AppNotfoundComponent },
                 // { path: "**", redirectTo: "/notfound" },
             ],
-            { useHash: false }
+            { useHash: true }
         ),
     ],
     exports: [RouterModule],

@@ -183,16 +183,20 @@ const userRoutes = (app, fs) => {
 const appRouter = (app, fs) => {
     // default route
     userRoutes(app, fs);
+    // app.get('/', (req, res) => {
+
+    //     if (req.originalUrl === `/kalantak`) {
+    //         console.log(req.originalUrl, 'req')
+    //     } else {
+
+    //     }
+    //     app.use(express.static('./dist/dashboard'));
+    //     res.sendFile('index.html', { root: 'dist/dashboard/' })
+    //     // res.send('welcome to the development api-server');
+    // });
+    app.use('/', express.static('./dist/dashboard/'));
     app.get('/*', (req, res) => {
-
-        if (req.originalUrl === `/kalantak`) {
-            console.log(req.originalUrl, 'req')
-        } else {
-
-        }
-        app.use(express.static('./dist/dashboard'));
-        res.sendFile('index.html', { root: 'dist/dashboard/' })
-        // res.send('welcome to the development api-server');
+        res.sendFile('index.html', { root: './dist/dashboard/' })
     });
     // app.get('/kalantak/users')
     // // other routes
