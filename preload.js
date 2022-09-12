@@ -174,7 +174,7 @@ const userRoutes = (app, fs) => {
 
 const appRouter = (app, fs) => {
     // default route
-    app.get('/', (req, res) => {
+    app.get('/kalantak', (req, res) => {
         res.send('welcome to the development api-server');
     });
     // // other routes
@@ -183,7 +183,7 @@ const appRouter = (app, fs) => {
 };
 appRouter(app, fs)
 
-server = app.listen(3000, () => {
+server = app.listen(process.env.PORT || 8080, () => {
     console.log('listening on port %s...', server.address().port);
 });
 // });
