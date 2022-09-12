@@ -8,25 +8,26 @@
     "angular-cli": {},
     "scripts": {
         "ng": "ng",
-        "start": "node server.js",
+        "start": "nodemon server.js",
         "build": "ng build --prod --base-href && npm run copy",
         "copy": "copyfiles \"README.md\" \"dist/dashboard/\" && copyfiles \"main.js\" \"dist/dashboard/\"",
         "test": "ng test",
         "lint": "ng lint",
         "e2e": "ng e2e",
-        "server": "nodemon",
         "electron": "concurrently \"npm run server\" \"ng build && electron .\"",
         "dist": "electron-builder",
         "heroku-postbuild": "ng build --prod --base-href"
     },
     "private": true,
+    "engines": {
+        "node": "12.18.4",
+        "npm": "6.14.6"
+    },
     "dependencies": {
         "@angular/animations": "~13.0.1",
         "@angular/cdk": "~13.0.1",
         "@angular/common": "~13.0.1",
         "@angular/compiler": "~13.0.1",
-        "@angular/cli": "~13.0.1",
-        "@angular/compiler-cli": "~13.0.1",
         "@angular/core": "~13.0.1",
         "@angular/forms": "~13.0.1",
         "@angular/platform-browser": "~13.0.1",
@@ -88,10 +89,6 @@
         "ts-node": "~8.3.0",
         "tslint": "~6.1.0",
         "typescript": "~4.4.3"
-    },
-    "engines": {
-        "node": "16.15.1",
-        "npm": "8.11.0"
     },
     "build": {
         "appId": "Info@Kalantak.com",
