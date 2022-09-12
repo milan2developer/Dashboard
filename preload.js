@@ -174,7 +174,7 @@ const userRoutes = (app, fs) => {
 
 const appRouter = (app, fs) => {
     // default route
-    app.get('/kalantak', (req, res) => {
+    app.get('/', (req, res) => {
         res.send('welcome to the development api-server');
     });
     // // other routes
