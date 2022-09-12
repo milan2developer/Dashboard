@@ -19,7 +19,7 @@ var server;
 // window.addEventListener("DOMContentLoaded", () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:4200'] }))
+app.use(cors({ origin: ['http://localhost:3000', 'https://angular13-dashboard.herokuapp.com'] }))
 
 const userBaseUrl = `/kalantak/users`
 const employeBaseUrl = `/kalantak/employes`
@@ -194,6 +194,7 @@ const appRouter = (app, fs) => {
         userRoutes(app, fs);
         // res.send('welcome to the development api-server');
     });
+    app.get('/kalantak/users')
     // // other routes
 
 };
