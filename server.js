@@ -1,9 +1,12 @@
 //Install express server
 
+const express = require('express');
+const bodyParser = require('body-parser');
 const path = require('path');
-
 const app = express();
-
+const fs = require('fs');
+let cors = require('cors');
+var server;
 // Serve only the static files form the dist directory
 // app.use(express.static('./dist/dashboard'));
 
@@ -11,28 +14,19 @@ const app = express();
 // Start the app by listening on the default Heroku port
 // app.listen(process.env.PORT || 8080);
 
-// const { exec } = require("child_process");
-// const { app } = require('electron')
-// All of the Node.js APIs are available in the preload process.
-const express = require('express');
-const bodyParser = require('body-parser');
 
-const fs = require('fs');
-let cors = require('cors');
-const path = require("path");
-var server;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(cors({ origin: ['http://localhost:3000', 'http://localhost:4200'] }))
-app.use(express.static('./dist/dashboard'))
 const userBaseUrl = `/kalantak/users`
 const employeBaseUrl = `/kalantak/employes`
+
+app.use(express.static('./dist/dashboard'))
 
 const userRoutes = (app, fs) => {
     // variables
     const dataPath = path.join(__dirname, "db.json");
-    // 'resources/app/assets/server/db.json';
     // helper methods
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -185,10 +179,12 @@ const userRoutes = (app, fs) => {
     });
 };
 
+
+
 const appRouter = (app, fs) => {
     // default route
     app.get('/*', (req, res) => {
-        // res.send('welcome to the development api-server');
+        res.send('welcome to the development api-server');
         res.sendFile('index.html', { root: 'dist/dashboard/' });
     });
     // // other routes
