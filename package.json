@@ -16,7 +16,7 @@
         "e2e": "ng e2e",
         "electron": "concurrently \"npm run server\" \"ng build && electron .\"",
         "dist": "electron-builder",
-        "heroku-postbuild": "ng build --prod --base-href"
+        "heroku-postbuild": "npm run build"
     },
     "private": true,
     "engines": {
