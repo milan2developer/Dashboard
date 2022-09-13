@@ -1,25 +1,15 @@
 //Install express server
 const express = require('express');
 const path = require('path');
-
 const app = express();
-
-// Serve only the static files form the dist directory
-
-
-// Start the app by listening on the default Heroku port
-
-
 const bodyParser = require('body-parser');
-
 const fs = require('fs');
 let cors = require('cors');
 
 var server;
-// window.addEventListener("DOMContentLoaded", () => {
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(cors({ origin: ['http://localhost:3000', 'https://angular13-dashboard.herokuapp.com'] }))
+app.use(cors({ origin: ['http://localhost:3000', 'https://angular13-dashboard.herokuapp.com', 'http://localhost:4200'] }))
 
 const userBaseUrl = `/kalantak/users`
 const employeBaseUrl = `/kalantak/employes`
@@ -27,7 +17,6 @@ const employeBaseUrl = `/kalantak/employes`
 const userRoutes = (app, fs) => {
     // variables
     const dataPath = path.join(__dirname, "dist/dashboard/assets/server/db.json");
-    // 'resources/app/assets/server/db.json';
     // helper methods
     const readFile = (callback, returnJson = false, filePath = dataPath, encoding = 'utf8') => {
         fs.readFile(filePath, encoding, (err, data) => {
@@ -60,8 +49,6 @@ const userRoutes = (app, fs) => {
     // CREATE
     app.post(`${employeBaseUrl}`, (req, res) => {
         readFile(data => {
-            // Note: this isn't ideal for production use. 
-            // ideally, use something like a UUID or other GUID for a unique ID value
             const newUserId = Date.now().toString();
             // add the new user
             req.body["id"] = newUserId;
@@ -127,8 +114,6 @@ const userRoutes = (app, fs) => {
     // CREATE
     app.post(`${userBaseUrl}`, (req, res) => {
         readFile(data => {
-            // Note: this isn't ideal for production use. 
-            // ideally, use something like a UUID or other GUID for a unique ID value
             const newUserId = Date.now().toString();
             // add the new user
             req.body["id"] = newUserId;
@@ -183,23 +168,11 @@ const userRoutes = (app, fs) => {
 const appRouter = (app, fs) => {
     // default route
     userRoutes(app, fs);
-    // app.get('/', (req, res) => {
-
-    //     if (req.originalUrl === `/kalantak`) {
-    //         console.log(req.originalUrl, 'req')
-    //     } else {
-
-    //     }
-    //     app.use(express.static('./dist/dashboard'));
-    //     res.sendFile('index.html', { root: 'dist/dashboard/' })
-    //     // res.send('welcome to the development api-server');
-    // });
     app.use('/', express.static('./dist/dashboard/'));
     app.get('/*', (req, res) => {
         res.sendFile('index.html', { root: './dist/dashboard/' })
     });
-    // app.get('/kalantak/users')
-    // // other routes
+
 
 };
 appRouter(app, fs)

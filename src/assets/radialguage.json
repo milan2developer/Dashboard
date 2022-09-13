@@ -1,0 +1,1 @@
+[{"scope_value":608},{"scope_upperLimit":6000},{"scope_lowerLimit":0},{"scope_units":""},{"scope_precision":0},{"scope_ranges":[{"min":0,"max":1200,"color":"#00000"},{"min":1200,"max":2400,"color":"#8DCA2F"},{"min":2400,"max":3600,"color":"#FDC702"},{"min":3600,"max":4800,"color":"#FF7700"},{"min":4800,"max":6000,"color":"#C50200"}]}]

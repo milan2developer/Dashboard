@@ -75,12 +75,12 @@ export class RadialGauge {
         this.loadData();
     }
     loadData() {
-        d3.json(
-            "http://ec2-52-55-236-86.compute-1.amazonaws.com/clean/getRadialPercentageValue/?format=json"
-        ).then((response) => {
+        d3.json("assets/radialguage.json").then(async (response) => {
             this.chartData = response;
+            console.log(this.chartData);
+
             this.createEle();
-            this.updateDataAndEle();
+            await this.updateDataAndEle();
         });
     }
 

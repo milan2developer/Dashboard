@@ -1,10 +1,4 @@
-import {
-    AfterViewInit,
-    Component,
-    HostListener,
-    OnDestroy,
-    OnInit,
-} from "@angular/core";
+import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
 import { AppBreadcrumbService } from "../../../app.breadcrumb.service";
 import { BarChartHorizontal } from "../../models/Barchart_Horizontal";
 import { barChartStacked } from "../../models/Barchart_Stacked";
@@ -22,7 +16,6 @@ import { NetworkChart } from "../../models/networkChart";
 import { MapConnection } from "../../models/mapConnection";
 import { SunBurstChart } from "../../models/sunburstchart";
 import { HeatMapChart } from "../../models/heatMapChart";
-import { SankeyChart } from "../../models/sankeyChart";
 import { WordCloudChart } from "../../models/wordCloudChart";
 import { Employe } from "../../models/employe.model";
 import { Store, select } from "@ngrx/store";
@@ -69,7 +62,6 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
     sunBurstChart: SunBurstChart;
     heatMapChart: HeatMapChart;
     configSankeyChart: any;
-    sankeyChart: SankeyChart;
     wordcloudChart: WordCloudChart;
     employes$: Observable<Employe[]>;
     employesSub: Subscription;
@@ -230,12 +222,6 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
         };
         this.heatMapChart = new HeatMapChart(this.configHeatMap);
     }
-    setSankeyChart() {
-        this.configSankeyChart = {
-            id: "sankeychart",
-        };
-        this.sankeyChart = new SankeyChart(this.configSankeyChart);
-    }
     setWordCloud() {
         this.configwordcloud = {
             id: "wordcloud",
@@ -298,9 +284,6 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
         }
         if (this.heatMapChart) {
             this.heatMapChart.resizeChart();
-        }
-        if (this.sankeyChart) {
-            this.sankeyChart.resizeChart();
         }
         if (this.wordcloudChart) {
             this.wordcloudChart.resizeChart();
