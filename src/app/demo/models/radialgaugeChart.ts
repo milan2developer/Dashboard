@@ -77,8 +77,6 @@ export class RadialGauge {
     loadData() {
         d3.json("assets/radialguage.json").then(async (response) => {
             this.chartData = response;
-            console.log(this.chartData);
-
             this.createEle();
             await this.updateDataAndEle();
         });
