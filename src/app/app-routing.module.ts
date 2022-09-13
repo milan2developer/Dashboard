@@ -36,7 +36,6 @@ import { DynamicCrudComponent } from "./demo/Components/dynamicCrud/dynamicCrud.
                             path: "dashboard/d3charts",
                             component: d3ChartsComponent,
                         },
-
                         { path: "dashboard/crud", component: AppCrudComponent },
                         {
                             path: "dashboard/jsoncrud",
@@ -44,8 +43,11 @@ import { DynamicCrudComponent } from "./demo/Components/dynamicCrud/dynamicCrud.
                         },
                     ],
                 },
-
-                { path: "**", component: AppNotfoundComponent },
+                {
+                    path: "**",
+                    pathMatch: "full",
+                    component: AppNotfoundComponent,
+                },
             ],
             { useHash: true }
         ),

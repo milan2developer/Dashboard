@@ -1,6 +1,8 @@
 <div>
-    <!-- <p-progressSpinner *ngIf="loading"></p-progressSpinner> -->
-    <div *ngIf="!loading" class="grid dashboard">
+    <div class="loader" *ngIf="IsLoading">
+        <p-progressSpinner *ngIf="IsLoading"></p-progressSpinner>
+    </div>
+    <div class="grid dashboard">
         <div class="col-12 lg:col-6">
             <div class="card">
                 <div class="card-header">

@@ -1,4 +1,11 @@
-import { Component, HostListener, OnDestroy, OnInit } from "@angular/core";
+import {
+    AfterViewInit,
+    ChangeDetectorRef,
+    Component,
+    HostListener,
+    OnDestroy,
+    OnInit,
+} from "@angular/core";
 import { AppBreadcrumbService } from "../../../app.breadcrumb.service";
 import { BarChartHorizontal } from "../../models/Barchart_Horizontal";
 import { barChartStacked } from "../../models/Barchart_Stacked";
@@ -22,6 +29,14 @@ import { Store, select } from "@ngrx/store";
 import * as fromEmploye from "../../state/employe.reducer";
 import { Observable, Subscription } from "rxjs";
 import * as d3 from "d3";
+import {
+    Router,
+    NavigationStart,
+    Event,
+    NavigationEnd,
+    RouterEvent,
+} from "@angular/router";
+import { MenuService } from "src/app/app.menu.service";
 
 @Component({
     templateUrl: "./d3Charts.component.html",
@@ -66,11 +81,15 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
     employes$: Observable<Employe[]>;
     employesSub: Subscription;
     clearTimeOutOnInit;
-    loading: boolean;
+    IsLoading: boolean = true;
+    isDestory: boolean;
     constructor(
         private breadcrumbService: AppBreadcrumbService,
-        private store: Store<fromEmploye.AppState>
+        private store: Store<fromEmploye.AppState>,
+        private cd: ChangeDetectorRef,
+        public menuService: MenuService
     ) {
+        // this.menuService.IsLoading = false;
         this.employes$ = this.store.pipe(select(fromEmploye.getEmploye));
         this.breadcrumbService.setItems([
             {
@@ -79,28 +98,28 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
             },
         ]);
     }
+
     async ngOnInit() {
-        // this.loading = true;
-        await setTimeout(async () => {
-            await Promise.all([
-                this.getUserData(),
-                this.getCsvData(),
-                this.getJsonData(),
-                this.setAreachart(),
-                this.setHierarchicalEdgeChart(),
-                this.setRadialGaugeChart(),
-                this.setTreeLayoutChart(),
-                this.setNetworkChart(),
-                this.setMapConnectionChart(),
-                this.setSunBurstChart(),
-                this.setHeatMapChart(),
-                this.setPieChart(),
-                this.setdonutLegendChart(),
-                this.setWordCloud(),
-            ]);
-            // this.loading = false;
-        }, 2000);
-        // this.loading = true;
+        this.IsLoading = true;
+        await Promise.all([
+            this.getUserData(),
+            this.getCsvData(),
+            this.getJsonData(),
+            this.setAreachart(),
+            this.setHierarchicalEdgeChart(),
+            this.setRadialGaugeChart(),
+            this.setTreeLayoutChart(),
+            this.setNetworkChart(),
+            this.setMapConnectionChart(),
+            this.setSunBurstChart(),
+            this.setHeatMapChart(),
+            this.setPieChart(),
+            this.setdonutLegendChart(),
+            this.setWordCloud(),
+        ]).then(() => {
+            this.IsLoading = false;
+        });
+        this.cd.detectChanges();
     }
 
     loadEmp(loadEmp) {
@@ -146,7 +165,9 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "areachart",
                     rawData: response,
                 };
-                this.areaChart = new AreaChart(this.configArea);
+                if (!this.isDestory) {
+                    this.areaChart = new AreaChart(this.configArea);
+                }
             });
         });
     }
@@ -235,9 +256,11 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "hierarchicaledge",
                     rawData: d.concat(newDataaa),
                 };
-                this.hierarchicalEdge = new HierarchicalEdgeChart(
-                    this.confighierarchicalEdge
-                );
+                if (!this.isDestory) {
+                    this.hierarchicalEdge = new HierarchicalEdgeChart(
+                        this.confighierarchicalEdge
+                    );
+                }
             });
         });
     }
@@ -250,7 +273,9 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "radialgauge",
                     rawData: response,
                 };
-                this.radialgauge = new RadialGauge(this.configradialgauge);
+                if (!this.isDestory) {
+                    this.radialgauge = new RadialGauge(this.configradialgauge);
+                }
             });
         });
     }
@@ -263,7 +288,11 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "treelayout",
                     rawData: response,
                 };
-                this.treelayoutchart = new TreeLayout(this.configtreelayout);
+                if (!this.isDestory) {
+                    this.treelayoutchart = new TreeLayout(
+                        this.configtreelayout
+                    );
+                }
             });
         });
     }
@@ -276,7 +305,9 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "networkchart",
                     rawData: graph,
                 };
-                this.networkchart = new NetworkChart(this.confignetwork);
+                if (!this.isDestory) {
+                    this.networkchart = new NetworkChart(this.confignetwork);
+                }
             });
         });
     }
@@ -289,9 +320,11 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "mapconnection",
                     rawData: data,
                 };
-                this.mapconnectionchart = new MapConnection(
-                    this.configmapconnection
-                );
+                if (!this.isDestory) {
+                    this.mapconnectionchart = new MapConnection(
+                        this.configmapconnection
+                    );
+                }
             });
         });
     }
@@ -304,7 +337,9 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "sunburstchart",
                     rawData: response,
                 };
-                this.sunBurstChart = new SunBurstChart(this.configSunburst);
+                if (!this.isDestory) {
+                    this.sunBurstChart = new SunBurstChart(this.configSunburst);
+                }
             });
         });
     }
@@ -317,7 +352,9 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
                     id: "heatmapchart",
                     rawData: data,
                 };
-                this.heatMapChart = new HeatMapChart(this.configHeatMap);
+                if (!this.isDestory) {
+                    this.heatMapChart = new HeatMapChart(this.configHeatMap);
+                }
             });
         });
     }
@@ -327,62 +364,85 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
             id: "linechart",
             rawData: response,
         };
-        this.lineChart = new LineChart(this.configLine);
+        if (!this.isDestory) {
+            this.lineChart = new LineChart(this.configLine);
+        }
     }
     setbarChartHorizontal(response: any) {
         this.configBarHorizontal = {
             id: "barcharthorizontal",
             rawData: response,
         };
-        this.barChartHorizontal = new BarChartHorizontal(
-            this.configBarHorizontal
-        );
+        if (!this.isDestory) {
+            this.barChartHorizontal = new BarChartHorizontal(
+                this.configBarHorizontal
+            );
+        }
     }
     setScatter(response: any) {
         this.configScatter = {
             id: "scatterchart",
             rawData: response,
         };
-        this.scatterChart = new ScatterChart(this.configScatter);
+        if (!this.isDestory) {
+            this.scatterChart = new ScatterChart(this.configScatter);
+        }
     }
     setStackedChart(response: any) {
         this.configBarStacked = {
             id: "barchartstacked",
             rawData: response,
         };
-        this.barChartStacked = new barChartStacked(this.configBarStacked);
+        if (!this.isDestory) {
+            this.barChartStacked = new barChartStacked(this.configBarStacked);
+        }
     }
     setbarChartVertical(response: any) {
         this.configBarVertical = {
             id: "barchartvertical",
             rawData: response,
         };
-        this.barChartVertical = new barChartVertical(this.configBarVertical);
+        if (!this.isDestory) {
+            this.barChartVertical = new barChartVertical(
+                this.configBarVertical
+            );
+        }
     }
     setMultilineChart(response: any) {
         this.configMultiLine = {
             id: "multilinechart",
             rawData: response,
         };
-        this.multiLineChart = new MultiLineChart(this.configMultiLine);
+        if (!this.isDestory) {
+            this.multiLineChart = new MultiLineChart(this.configMultiLine);
+        }
     }
     setPieChart() {
         this.configPie = {
             id: "piechart",
         };
-        this.pieChart = new PieChart(this.configPie);
+
+        if (!this.isDestory) {
+            this.pieChart = new PieChart(this.configPie);
+        }
     }
     setdonutLegendChart() {
         this.configDonutLegend = {
             id: "donutwithlegend",
         };
-        this.donutLegendChart = new DonutLegendChart(this.configDonutLegend);
+        if (!this.isDestory) {
+            this.donutLegendChart = new DonutLegendChart(
+                this.configDonutLegend
+            );
+        }
     }
     setWordCloud() {
         this.configwordcloud = {
             id: "wordcloud",
         };
-        this.wordcloudChart = new WordCloudChart(this.configwordcloud);
+        if (!this.isDestory) {
+            this.wordcloudChart = new WordCloudChart(this.configwordcloud);
+        }
     }
 
     ngOnDestroy(): void {
@@ -390,6 +450,7 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
         if (this.employesSub) {
             this.employesSub.unsubscribe();
         }
+        this.isDestory = true;
     }
     @HostListener("window:resize", ["$event"])
     onResize(event) {

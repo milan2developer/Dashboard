@@ -94,6 +94,47 @@ export class WordCloudChart {
             "Python",
             "Linux",
             "Programming",
+            "Linux",
+            "Programming",
+            "Graph Gallery",
+            "Biologie",
+            "Resistance",
+            "Computing",
+            "Data-Science",
+            "Reproductible",
+            "GitHub",
+            "Script",
+            "Experimentation",
+            "Talk",
+            "Conference",
+            "Writing",
+            "Publication",
+            "Analysis",
+            "Bioinformatics",
+            "Science",
+            "Statistics",
+            "Data",
+            "Programming",
+            "Wheat",
+            "Virus",
+            "Genotyping",
+            "Work",
+            "Fun",
+            "Surfing",
+            "R",
+            "R",
+            "Data-Viz",
+            "Python",
+            "Linux",
+            "Programming",
+            "Milan",
+            "polara",
+            "Data",
+            "analysis",
+            "anggular",
+            "react",
+            "android",
+            "IOs",
         ];
         this.createEle();
     }
@@ -116,10 +157,7 @@ export class WordCloudChart {
             .attr("width", this.width)
             .attr("height", this.height)
             .append("g")
-            .attr(
-                "transform",
-                "translate(" + this.margin.left + "," + this.margin.top + ")"
-            );
+            .attr("transform", "translate(0,0)");
         this.layout = d3Cloud()
             .size([this.width, this.height])
             .words(
@@ -127,8 +165,8 @@ export class WordCloudChart {
                     return { text: d };
                 })
             )
-            .padding(8)
-            .rotate(-60)
+            .padding(4)
+            .rotate(0)
             .fontSize(24)
             .on("end", (word) => this.drawChart(word));
 
