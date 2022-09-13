@@ -1,7 +1,6 @@
 <div class="grid">
     <div class="col-12">
         <p-toast></p-toast>
-
         <div class="card">
             <p-toolbar styleClass="mb-4">
                 <ng-template pTemplate="left">
@@ -97,7 +96,6 @@
                     </div>
                 </ng-template>
                 <ng-template let-employe pTemplate="gridItem">
-                    <!-- <div class="xxl:col-2 xl:col-3 lg:col-4 sm:col-6 col-12"> -->
                     <div class="col-12 xl:col-2 lg:col-3 md:col-3 sm:col-6">
                         <div class="product-grid-item card">
                             <div class="product-grid-item-top">
@@ -181,12 +179,6 @@
                             placeholder="Image Upload"
                             (change)="onChange($event)"
                         />
-                        <div class="error">
-                            <!-- <small id="Image Upload" class="p-error"
-                                *ngIf="employeeForm.get('image').hasError('required') && employeeForm.get('image').touched">Employee
-                                - Image
-                                is required</small> -->
-                        </div>
                     </div>
                     <div class="field">
                         <label for="name">Employee Name</label>
