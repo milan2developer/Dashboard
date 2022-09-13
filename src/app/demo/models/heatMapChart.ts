@@ -31,17 +31,10 @@ export class HeatMapChart {
     }
 
     loadData() {
-        this.chartData = [];
-        d3.csv("assets/heatmap_data.csv").then((data) => {
-            this.chartData = data;
-            this.Groups = Array.from(
-                new Set(this.chartData.map((d) => d.group))
-            );
-            this.Vars = Array.from(
-                new Set(this.chartData.map((d) => d.variable))
-            );
-            this.createEle();
-        });
+        this.chartData = this.rawData;
+        this.Groups = Array.from(new Set(this.chartData.map((d) => d.group)));
+        this.Vars = Array.from(new Set(this.chartData.map((d) => d.variable)));
+        this.createEle();
     }
 
     createEle() {

@@ -2,6 +2,7 @@ import * as d3 from "d3";
 
 export interface config {
     id: string;
+    rawData: any[];
 }
 export class RadialGauge {
     id;
@@ -54,6 +55,7 @@ export class RadialGauge {
 
     constructor(public config: config) {
         this.id = this.config.id;
+        this.rawData = this.config.rawData;
         this.majorGraduations = parseInt(this.majorGraduations) - 1 || 5;
         this.minorGraduations = parseInt(this.minorGraduations) || 10;
         this.majorGraduationLength = this.majorGraduationLength
@@ -75,11 +77,9 @@ export class RadialGauge {
         this.loadData();
     }
     loadData() {
-        d3.json("assets/radialguage.json").then(async (response) => {
-            this.chartData = response;
-            this.createEle();
-            await this.updateDataAndEle();
-        });
+        this.chartData = this.rawData;
+        this.createEle();
+        this.updateDataAndEle();
     }
 
     createEle() {

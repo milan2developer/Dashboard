@@ -1,8 +1,8 @@
 import * as d3 from "d3";
-import { schemeCategory10 } from "d3";
 
 export interface config {
     id: string;
+    rawData: any[];
 }
 export class HierarchicalEdgeChart {
     id;
@@ -29,91 +29,16 @@ export class HierarchicalEdgeChart {
     colornone = "#ccc";
 
     constructor(public config: config) {
+        console.log();
+
         this.id = this.config.id;
+        this.rawData = this.config.rawData;
         this.loadData();
     }
     loadData() {
-        let objDuplicate = {};
-        let newDataaa = [];
-        d3.csv(
-            "assets/Year_Wise_Interaction_Counts_Full_Data_data.csv",
-            (obj: any) => {
-                let name = obj["Source Label"];
-                let target = obj["Target Label"];
-                obj.name = "root." + obj["Label"] + "." + name;
-                obj.target = target;
-
-                const string = "root." + obj["Label"] + "." + obj.target;
-                const json1 = JSON.parse(JSON.stringify(obj));
-                const target1 = json1["Target Label"];
-                const Source = json1["Source Label"];
-                json1["Source Label"] = target1;
-                json1["Target Label"] = Source;
-                json1.name =
-                    "root." + obj["Label"] + "." + json1["Source Label"];
-                json1.target = json1["Target Label"];
-                const string1 =
-                    "root." + json1["Label"] + "." + json1["Target Label"];
-
-                if (!objDuplicate[string]) {
-                    json1.imports = [string1];
-                    objDuplicate[string] = {
-                        [name]: json1["Label"],
-                        data: json1,
-                    };
-                    newDataaa.push(json1);
-                } else if (
-                    objDuplicate[string] &&
-                    !objDuplicate[string][name]
-                ) {
-                    objDuplicate[string].data.imports.push(string1);
-                    json1.imports = objDuplicate[string].data.imports;
-                    objDuplicate[string] = {
-                        [name]: json1["Label"],
-                        data: json1,
-                    };
-                    newDataaa.push(json1);
-                }
-                if (!objDuplicate[obj.name]) {
-                    obj.imports = [string];
-                    objDuplicate[obj.name] = {
-                        [target]: obj["Label"],
-                        data: obj,
-                    };
-
-                    return obj;
-                } else if (
-                    objDuplicate[obj.name] &&
-                    !objDuplicate[obj.name][target]
-                ) {
-                    objDuplicate[obj.name].data.imports.push(string);
-                    obj.imports = objDuplicate[obj.name].data.imports;
-                    objDuplicate[obj.name] = {
-                        [target]: obj["Label"],
-                        data: obj,
-                    };
-
-                    return obj;
-                } else if (
-                    objDuplicate[obj.name] &&
-                    objDuplicate[obj.name][target] &&
-                    objDuplicate[obj.name][target] !== obj["Label"]
-                ) {
-                    objDuplicate[obj.name].data.imports.push(string);
-                    obj.imports = objDuplicate[obj.name].data.imports;
-                    objDuplicate[obj.name] = {
-                        [target]: obj["Label"],
-                        data: obj,
-                    };
-
-                    return obj;
-                }
-            }
-        ).then((d) => {
-            this.chartData = d.concat(newDataaa);
-            this.createEle();
-            this.drawChart();
-        });
+        this.chartData = this.rawData;
+        this.createEle();
+        this.drawChart();
     }
 
     createEle() {

@@ -2,6 +2,7 @@ import * as d3 from "d3";
 
 export interface config {
     id: string;
+    rawData: any[];
 }
 export class SunBurstChart {
     id;
@@ -22,19 +23,19 @@ export class SunBurstChart {
     selectPath: any;
     format: any;
     labelText: any;
+    rawData: any;
 
     constructor(public config: config) {
         this.id = this.config.id;
+        this.rawData = this.config.rawData;
         this.loadData();
     }
     loadData() {
-        d3.json("assets/sunburstchartData.json").then((response) => {
-            this.chartData = response;
-            this.root = this.partition(this.chartData);
-            this.root.each((d) => (d.current = d));
-            this.createEle();
-            this.drawChart();
-        });
+        this.chartData = this.rawData;
+        this.root = this.partition(this.chartData);
+        this.root.each((d) => (d.current = d));
+        this.createEle();
+        this.drawChart();
     }
 
     createEle() {

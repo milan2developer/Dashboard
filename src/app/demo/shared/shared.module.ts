@@ -78,6 +78,7 @@ import { TooltipModule } from "primeng/tooltip";
 import { TreeModule } from "primeng/tree";
 import { TreeTableModule } from "primeng/treetable";
 import { VirtualScrollerModule } from "primeng/virtualscroller";
+import { ProgressSpinnerModule } from "primeng/progressspinner";
 
 const prime = [
     AccordionModule,
@@ -159,6 +160,7 @@ const prime = [
     TreeTableModule,
     VirtualScrollerModule,
     CommonModule,
+    ProgressSpinnerModule,
 ];
 @NgModule({
     declarations: [],

@@ -27,16 +27,12 @@ export class MapConnection {
 
     constructor(public config: config) {
         this.id = this.config.id;
-
+        this.rawData = this.config.rawData;
         this.loadData();
     }
 
     loadData() {
-        d3.json("assets/world-countries.json").then((data) => {
-            this.chartData = data;
-            this.createEle();
-            this.drawChart();
-        });
+        this.chartData = this.rawData;
         this.link = [
             {
                 type: "LineString",
@@ -67,6 +63,8 @@ export class MapConnection {
                 ],
             },
         ];
+        this.createEle();
+        this.drawChart();
     }
 
     createEle() {

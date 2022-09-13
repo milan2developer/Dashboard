@@ -21,9 +21,11 @@ export class NetworkChart {
     adjlist: any[];
     transform: d3.ZoomTransform;
     chartData: any;
+    rawData: any;
 
     constructor(public config: config) {
         this.id = this.config.id;
+        this.rawData = this.config.rawData;
         this.color = d3.scaleOrdinal(d3.schemeCategory10);
         this.width =
             d3.select("#" + this.id).node()["clientWidth"] -
@@ -48,51 +50,46 @@ export class NetworkChart {
         this.loadData();
     }
     loadData() {
-        d3.json("./assets/dataforce.json").then((graph) => {
-            this.chartData = graph;
-            graph["nodes"].forEach((d, i) => {
-                this.label.nodes.push({ node: d });
-                this.label.nodes.push({ node: d });
-                this.label.links.push({
-                    source: i * 2,
-                    target: i * 2 + 1,
-                });
+        this.chartData = this.rawData;
+        this.chartData["nodes"].forEach((d, i) => {
+            this.label.nodes.push({ node: d });
+            this.label.nodes.push({ node: d });
+            this.label.links.push({
+                source: i * 2,
+                target: i * 2 + 1,
             });
-            this.labelLayout = d3
-                .forceSimulation(this.label.nodes)
-                .force("charge", d3.forceManyBody().strength(-50))
-                .force(
-                    "link",
-                    d3.forceLink(this.label.links).distance(0).strength(1)
-                );
-            this.graphLayout = d3
-                .forceSimulation(graph["nodes"])
-                .force("charge", d3.forceManyBody().strength(-3000))
-                .force(
-                    "center",
-                    d3.forceCenter(this.width / 2, this.height / 2)
-                )
-                .force("x", d3.forceX(this.width / 2).strength(1))
-                .force("y", d3.forceY(this.height / 2).strength(1))
-                .force(
-                    "link",
-                    d3
-                        .forceLink(graph["links"])
-                        .id((d) => {
-                            return d["id"];
-                        })
-                        .distance(50)
-                        .strength(1)
-                )
-                .on("tick", this.ticked.bind(this));
-
-            graph["links"].forEach((d) => {
-                this.adjlist[d.source.index + "-" + d.target.index] = true;
-                this.adjlist[d.target.index + "-" + d.source.index] = true;
-            });
-            this.createCanvasEle();
-            this.drawCanvas();
         });
+        this.labelLayout = d3
+            .forceSimulation(this.label.nodes)
+            .force("charge", d3.forceManyBody().strength(-50))
+            .force(
+                "link",
+                d3.forceLink(this.label.links).distance(0).strength(1)
+            );
+        this.graphLayout = d3
+            .forceSimulation(this.chartData["nodes"])
+            .force("charge", d3.forceManyBody().strength(-3000))
+            .force("center", d3.forceCenter(this.width / 2, this.height / 2))
+            .force("x", d3.forceX(this.width / 2).strength(1))
+            .force("y", d3.forceY(this.height / 2).strength(1))
+            .force(
+                "link",
+                d3
+                    .forceLink(this.chartData["links"])
+                    .id((d) => {
+                        return d["id"];
+                    })
+                    .distance(50)
+                    .strength(1)
+            )
+            .on("tick", this.ticked.bind(this));
+
+        this.chartData["links"].forEach((d) => {
+            this.adjlist[d.source.index + "-" + d.target.index] = true;
+            this.adjlist[d.target.index + "-" + d.source.index] = true;
+        });
+        this.createCanvasEle();
+        this.drawCanvas();
     }
 
     drawCanvas() {

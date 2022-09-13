@@ -1,189 +1,194 @@
-<div class="grid dashboard">
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Bar Chart Vertical</h5>
-            </div>
-            <ul class="widget-list  h-22rem">
-                <div id="barchartvertical" class="h-22rem"></div>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Bar Chart Horizontal</h5>
-            </div>
-            <ul class="widget-list  h-22rem">
-                <div id="barcharthorizontal" class="h-22rem"></div>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Bar Chart Stacked</h5>
-            </div>
-            <ul class="widget-list  h-22rem">
-                <div id="barchartstacked" class="h-22rem"></div>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Line chart</h5>
-            </div>
-            <ul class="widget-list h-22rem">
-                <div id="linechart" class="h-22rem"></div>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Multi-Line chart</h5>
-            </div>
-            <ul class="widget-list h-22rem">
-                <div id="multilinechart" class="h-22rem"></div>
-            </ul>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Scatter-Plot Chart</h5>
-            </div>
-            <div class="widget-list h-22rem">
-                <div id="scatterchart" class="h-22rem"></div>
+<div>
+    <!-- <p-progressSpinner *ngIf="loading"></p-progressSpinner> -->
+    <div *ngIf="!loading" class="grid dashboard">
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Bar Chart Vertical</h5>
+                </div>
+                <ul class="widget-list h-22rem">
+                    <div id="barchartvertical" class="h-22rem"></div>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Area-Chart</h5>
-            </div>
-            <div class="widget-list h-22rem">
-                <div id="areachart" class="h-22rem"></div>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Pie-Chart</h5>
-            </div>
-            <div class="widget-list h-22rem">
-                <div id="piechart" class="h-22rem"></div>
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Bar Chart Horizontal</h5>
+                </div>
+                <ul class="widget-list h-22rem">
+                    <div id="barcharthorizontal" class="h-22rem"></div>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Donut With Legends</h5>
-            </div>
-            <div class="widget-list h-22rem">
-                <div id="donutwithlegend" class="h-22rem"></div>
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Bar Chart Stacked</h5>
+                </div>
+                <ul class="widget-list h-22rem">
+                    <div id="barchartstacked" class="h-22rem"></div>
+                </ul>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-6">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Radial-Gauge</h5>
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Line chart</h5>
+                </div>
+                <ul class="widget-list h-22rem">
+                    <div id="linechart" class="h-22rem"></div>
+                </ul>
             </div>
-            <div class="widget-list h-22rem ">
-                <div id="radialgauge" class="h-22rem ">
+        </div>
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Multi-Line chart</h5>
+                </div>
+                <ul class="widget-list h-22rem">
+                    <div id="multilinechart" class="h-22rem"></div>
+                </ul>
+            </div>
+        </div>
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Scatter-Plot Chart</h5>
+                </div>
+                <div class="widget-list h-22rem">
+                    <div id="scatterchart" class="h-22rem"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Hierarchical-Edge Chart</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="hierarchicaledge" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Area-Chart</h5>
+                </div>
+                <div class="widget-list h-22rem">
+                    <div id="areachart" class="h-22rem"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Tree-Layout</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="treelayout" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Pie-Chart</h5>
+                </div>
+                <div class="widget-list h-22rem">
+                    <div id="piechart" class="h-22rem"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Network-Chart</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="networkchart" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Donut With Legends</h5>
+                </div>
+                <div class="widget-list h-22rem">
+                    <div id="donutwithlegend" class="h-22rem"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>World-Map with Connection</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="mapconnection" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-6">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Radial-Gauge</h5>
+                </div>
+                <div class="widget-list h-22rem">
+                    <div id="radialgauge" class="h-22rem"></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Sun-Burst Chart</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="sunburstchart" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Hierarchical-Edge Chart</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="hierarchicaledge"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Heat-Map Chart</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="heatmapchart" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Tree-Layout</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="treelayout"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
                 </div>
             </div>
         </div>
-    </div>
-    <!-- <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Sankey-Chart</h5>
-            </div>
-            <div class="widget-list h-30rem ">
-                <div id="sankeychart" class="h-30rem flex flex-column align-items-center justify-content-center">
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Network-Chart</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="networkchart"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
                 </div>
             </div>
         </div>
-    </div> -->
-    <div class="col-12 lg:col-12">
-        <div class="card ">
-            <div class="card-header">
-                <h5>Word Cloud Map</h5>
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>World-Map with Connection</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="mapconnection"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
+                </div>
             </div>
-            <div class="widget-list h-30rem ">
-                <div id="wordcloud" class="h-30rem flex flex-column align-items-center justify-content-center">
+        </div>
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Sun-Burst Chart</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="sunburstchart"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Heat-Map Chart</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="heatmapchart"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-12 lg:col-12">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Word Cloud Map</h5>
+                </div>
+                <div class="widget-list h-30rem">
+                    <div
+                        id="wordcloud"
+                        class="h-30rem flex flex-column align-items-center justify-content-center"
+                    ></div>
                 </div>
             </div>
         </div>

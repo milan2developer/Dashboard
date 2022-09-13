@@ -31,14 +31,13 @@ export class TreeLayout {
 
     constructor(public config: config) {
         this.id = this.config.id;
+        this.rawData = this.config.rawData;
         this.loadData();
     }
 
     loadData() {
-        d3.json("./assets/data.json").then((response) => {
-            this.chartData = response;
-            this.createEle();
-        });
+        this.chartData = this.rawData;
+        this.createEle();
     }
 
     createEle() {

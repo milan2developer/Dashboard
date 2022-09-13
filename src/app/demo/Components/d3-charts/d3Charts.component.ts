@@ -66,10 +66,12 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
     employes$: Observable<Employe[]>;
     employesSub: Subscription;
     clearTimeOutOnInit;
+    loading: boolean;
     constructor(
         private breadcrumbService: AppBreadcrumbService,
         private store: Store<fromEmploye.AppState>
     ) {
+        this.employes$ = this.store.pipe(select(fromEmploye.getEmploye));
         this.breadcrumbService.setItems([
             {
                 label: "Dashboard Analytics",
@@ -77,42 +79,249 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
             },
         ]);
     }
-    ngOnInit(): void {
-        clearTimeout(this.clearTimeOutOnInit);
-        this.clearTimeOutOnInit = setTimeout(() => {
-            this.employes$ = this.store.pipe(select(fromEmploye.getEmploye));
-            this.employesSub = this.employes$.subscribe((loadEmp) => {
-                this.setLineChart(loadEmp);
-                this.setbarChartHorizontal(loadEmp);
-                this.setScatter(loadEmp);
-                this.setbarChartVertical(loadEmp);
-            });
-            this.getCsvData();
-            this.getJsonData();
-            this.setAreachart();
-            this.setPieChart();
-            this.setdonutLegendChart();
-            this.sethierarchicalEdgeChart();
-            this.setRadialGaugeChart();
-            this.setTreeLayoutChart();
-            this.setNetworkChart();
-            this.setMapConnectionChart();
-            this.setSunBurstChart();
-            this.setHeatMapChart();
-            this.setWordCloud();
+    async ngOnInit() {
+        // this.loading = true;
+        await setTimeout(async () => {
+            await Promise.all([
+                this.getUserData(),
+                this.getCsvData(),
+                this.getJsonData(),
+                this.setAreachart(),
+                this.setHierarchicalEdgeChart(),
+                this.setRadialGaugeChart(),
+                this.setTreeLayoutChart(),
+                this.setNetworkChart(),
+                this.setMapConnectionChart(),
+                this.setSunBurstChart(),
+                this.setHeatMapChart(),
+                this.setPieChart(),
+                this.setdonutLegendChart(),
+                this.setWordCloud(),
+            ]);
+            // this.loading = false;
         }, 2000);
+        // this.loading = true;
+    }
+
+    loadEmp(loadEmp) {
+        this.setLineChart(loadEmp);
+        this.setbarChartHorizontal(loadEmp);
+        this.setScatter(loadEmp);
+        this.setbarChartVertical(loadEmp);
+    }
+    getUserData() {
+        return new Promise((resolve, rejects) => {
+            this.employesSub = this.employes$.subscribe((loadEmp) => {
+                resolve(loadEmp);
+                if (loadEmp && loadEmp.length) {
+                    return this.loadEmp(loadEmp);
+                }
+            });
+        });
     }
 
     getCsvData() {
-        d3.csv("./assets/data_stacked.csv").then((response) => {
-            this.setStackedChart(response);
+        return new Promise((resolve, rejects) => {
+            d3.csv("./assets/data_stacked.csv").then((response) => {
+                resolve(response);
+                return this.setStackedChart(response);
+            });
         });
     }
+
     getJsonData() {
-        d3.json("./assets/multilinechartData.json").then((response) => {
-            this.setMultilineChart(response);
+        return new Promise((resolve, rejects) => {
+            d3.json("./assets/multilinechartData.json").then((response) => {
+                resolve(response);
+                return this.setMultilineChart(response);
+            });
         });
     }
+
+    setAreachart() {
+        return new Promise((resolve, rejects) => {
+            d3.csv("./assets/areachartData.csv").then((response) => {
+                resolve(response);
+                this.configArea = {
+                    id: "areachart",
+                    rawData: response,
+                };
+                this.areaChart = new AreaChart(this.configArea);
+            });
+        });
+    }
+
+    setHierarchicalEdgeChart() {
+        let objDuplicate = {};
+        let newDataaa = [];
+        return new Promise((resolve, rejects) => {
+            d3.csv(
+                "assets/Year_Wise_Interaction_Counts_Full_Data_data.csv",
+                (obj: any) => {
+                    let name = obj["Source Label"];
+                    let target = obj["Target Label"];
+                    obj.name = "root." + obj["Label"] + "." + name;
+                    obj.target = target;
+
+                    const string = "root." + obj["Label"] + "." + obj.target;
+                    const json1 = JSON.parse(JSON.stringify(obj));
+                    const target1 = json1["Target Label"];
+                    const Source = json1["Source Label"];
+                    json1["Source Label"] = target1;
+                    json1["Target Label"] = Source;
+                    json1.name =
+                        "root." + obj["Label"] + "." + json1["Source Label"];
+                    json1.target = json1["Target Label"];
+                    const string1 =
+                        "root." + json1["Label"] + "." + json1["Target Label"];
+
+                    if (!objDuplicate[string]) {
+                        json1.imports = [string1];
+                        objDuplicate[string] = {
+                            [name]: json1["Label"],
+                            data: json1,
+                        };
+                        newDataaa.push(json1);
+                    } else if (
+                        objDuplicate[string] &&
+                        !objDuplicate[string][name]
+                    ) {
+                        objDuplicate[string].data.imports.push(string1);
+                        json1.imports = objDuplicate[string].data.imports;
+                        objDuplicate[string] = {
+                            [name]: json1["Label"],
+                            data: json1,
+                        };
+                        newDataaa.push(json1);
+                    }
+                    if (!objDuplicate[obj.name]) {
+                        obj.imports = [string];
+                        objDuplicate[obj.name] = {
+                            [target]: obj["Label"],
+                            data: obj,
+                        };
+
+                        return obj;
+                    } else if (
+                        objDuplicate[obj.name] &&
+                        !objDuplicate[obj.name][target]
+                    ) {
+                        objDuplicate[obj.name].data.imports.push(string);
+                        obj.imports = objDuplicate[obj.name].data.imports;
+                        objDuplicate[obj.name] = {
+                            [target]: obj["Label"],
+                            data: obj,
+                        };
+
+                        return obj;
+                    } else if (
+                        objDuplicate[obj.name] &&
+                        objDuplicate[obj.name][target] &&
+                        objDuplicate[obj.name][target] !== obj["Label"]
+                    ) {
+                        objDuplicate[obj.name].data.imports.push(string);
+                        obj.imports = objDuplicate[obj.name].data.imports;
+                        objDuplicate[obj.name] = {
+                            [target]: obj["Label"],
+                            data: obj,
+                        };
+
+                        return obj;
+                    }
+                }
+            ).then((d) => {
+                resolve(d.concat(newDataaa));
+                this.confighierarchicalEdge = {
+                    id: "hierarchicaledge",
+                    rawData: d.concat(newDataaa),
+                };
+                this.hierarchicalEdge = new HierarchicalEdgeChart(
+                    this.confighierarchicalEdge
+                );
+            });
+        });
+    }
+
+    setRadialGaugeChart() {
+        return new Promise((resolve, rejects) => {
+            d3.json("assets/radialguage.json").then((response) => {
+                resolve(response);
+                this.configradialgauge = {
+                    id: "radialgauge",
+                    rawData: response,
+                };
+                this.radialgauge = new RadialGauge(this.configradialgauge);
+            });
+        });
+    }
+
+    setTreeLayoutChart() {
+        return new Promise((resolve, rejects) => {
+            d3.json("./assets/data.json").then((response) => {
+                resolve(response);
+                this.configtreelayout = {
+                    id: "treelayout",
+                    rawData: response,
+                };
+                this.treelayoutchart = new TreeLayout(this.configtreelayout);
+            });
+        });
+    }
+
+    setNetworkChart() {
+        return new Promise((resolve, rejects) => {
+            d3.json("assets/dataforce.json").then((graph) => {
+                resolve(graph);
+                this.confignetwork = {
+                    id: "networkchart",
+                    rawData: graph,
+                };
+                this.networkchart = new NetworkChart(this.confignetwork);
+            });
+        });
+    }
+
+    setMapConnectionChart() {
+        return new Promise((resolve, rejects) => {
+            d3.json("assets/world-countries.json").then((data) => {
+                resolve(data);
+                this.configmapconnection = {
+                    id: "mapconnection",
+                    rawData: data,
+                };
+                this.mapconnectionchart = new MapConnection(
+                    this.configmapconnection
+                );
+            });
+        });
+    }
+
+    setSunBurstChart() {
+        return new Promise((resolve, rejects) => {
+            d3.json("assets/sunburstchartData.json").then((response) => {
+                resolve(response);
+                this.configSunburst = {
+                    id: "sunburstchart",
+                    rawData: response,
+                };
+                this.sunBurstChart = new SunBurstChart(this.configSunburst);
+            });
+        });
+    }
+
+    setHeatMapChart() {
+        return new Promise((resolve, rejects) => {
+            d3.csv("assets/heatmap_data.csv").then((data) => {
+                resolve(data);
+                this.configHeatMap = {
+                    id: "heatmapchart",
+                    rawData: data,
+                };
+                this.heatMapChart = new HeatMapChart(this.configHeatMap);
+            });
+        });
+    }
+
     setLineChart(response: any) {
         this.configLine = {
             id: "linechart",
@@ -157,15 +366,6 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
         };
         this.multiLineChart = new MultiLineChart(this.configMultiLine);
     }
-    setAreachart() {
-        d3.csv("./assets/areachartData.csv").then((response) => {
-            this.configArea = {
-                id: "areachart",
-                rawData: response,
-            };
-            this.areaChart = new AreaChart(this.configArea);
-        });
-    }
     setPieChart() {
         this.configPie = {
             id: "piechart",
@@ -177,50 +377,6 @@ export class d3ChartsComponent implements OnInit, OnDestroy {
             id: "donutwithlegend",
         };
         this.donutLegendChart = new DonutLegendChart(this.configDonutLegend);
-    }
-    sethierarchicalEdgeChart() {
-        this.confighierarchicalEdge = {
-            id: "hierarchicaledge",
-        };
-        this.hierarchicalEdge = new HierarchicalEdgeChart(
-            this.confighierarchicalEdge
-        );
-    }
-    setRadialGaugeChart() {
-        this.configradialgauge = {
-            id: "radialgauge",
-        };
-        this.radialgauge = new RadialGauge(this.configradialgauge);
-    }
-    setTreeLayoutChart() {
-        this.configtreelayout = {
-            id: "treelayout",
-        };
-        this.treelayoutchart = new TreeLayout(this.configtreelayout);
-    }
-    setNetworkChart() {
-        this.confignetwork = {
-            id: "networkchart",
-        };
-        this.networkchart = new NetworkChart(this.confignetwork);
-    }
-    setMapConnectionChart() {
-        this.configmapconnection = {
-            id: "mapconnection",
-        };
-        this.mapconnectionchart = new MapConnection(this.configmapconnection);
-    }
-    setSunBurstChart() {
-        this.configSunburst = {
-            id: "sunburstchart",
-        };
-        this.sunBurstChart = new SunBurstChart(this.configSunburst);
-    }
-    setHeatMapChart() {
-        this.configHeatMap = {
-            id: "heatmapchart",
-        };
-        this.heatMapChart = new HeatMapChart(this.configHeatMap);
     }
     setWordCloud() {
         this.configwordcloud = {

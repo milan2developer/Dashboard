@@ -27,7 +27,6 @@ export class WordCloudChart {
     }
 
     loadData() {
-        this.chartData = [];
         this.myWords = [
             "Hello",
             "Everybody",

@@ -30,3 +30,33 @@
 ::ng-deep .link:hover {
     stroke-opacity: 0.5;
 }
+
+@keyframes custom-progress-spinner-color {
+    100%,
+    0% {
+        stroke: #16697a;
+    }
+    40% {
+        stroke: #489fb5;
+    }
+    66% {
+        stroke: #82c0cc;
+    }
+    80%,
+    90% {
+        stroke: #ffa62b;
+    }
+}
+
+::ng-deep .p-progress-spinner {
+    position: absolute !important;
+    width: 150px !important;
+    height: 150px !important;
+    display: block;
+}
+
+::ng-deep .p-progress-spinner-svg {
+    height: 150px !important;
+    width: 150px !important;
+    position: fixed !important;
+}
